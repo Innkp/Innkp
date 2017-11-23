@@ -15,7 +15,7 @@ import com.innkp.Innkp.dao.VideoDao;
 import com.innkp.Innkp.entity.Department;
 import com.innkp.Innkp.entity.Role;
 import com.innkp.Innkp.entity.User;
-import com.innkp.Innkp.entity.Video;
+import com.innkp.Innkp.entity.VideoDo;
 
 @Service
 public class DataServiceImpl implements DataService {
@@ -32,7 +32,7 @@ public class DataServiceImpl implements DataService {
 
 	public void initData() {
 		videoDao.deleteAll();
-		Video v = new Video();
+		VideoDo v = new VideoDo();
 		v.setCover("111");
 		v.setName("222");
 		v.setUrl("333");

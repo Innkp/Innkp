@@ -4,8 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Component
-@Order(value = 2)
+//@Component
+//@Order(value = 2)
 public class StartupRunner2 implements CommandLineRunner {
 
 	@Override

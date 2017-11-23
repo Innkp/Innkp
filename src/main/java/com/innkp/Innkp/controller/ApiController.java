@@ -9,28 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.innkp.Innkp.dto.VideoDTO;
+import com.innkp.Innkp.dto.VideosDTO;
 import com.innkp.Innkp.entity.User;
 import com.innkp.Innkp.service.DataService;
 import com.innkp.Innkp.service.UserService;
+import com.innkp.Innkp.service.VideoService;
 
 /**
- * @ClassName: UserController
- * @Description: User控制器1
- * @author mengfanzhu
- * @date 2017年2月20日 下午5:58:19
+ * 
+ * @author yangxue9
+ *
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/api")
+public class ApiController {
 
-	protected static Logger logger = LoggerFactory.getLogger(UserController.class);
+	protected static Logger logger = LoggerFactory.getLogger(ApiController.class);
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private DataService dataService;
+	@Autowired
+	private VideoService videoService;
 
 	@RequestMapping("/demo/{name}")
 	@ResponseBody
@@ -39,9 +44,6 @@ public class UserController {
 		return "name is " + name;
 	}
 
-	/**
-	 * @Title: UserController @Description: 数据初始化 @author mengfanzhu @throws
-	 */
 	@RequestMapping("/initdata")
 	@ResponseBody
 	public String initData() {
@@ -49,10 +51,6 @@ public class UserController {
 		return "success";
 	}
 
-	/**
-	 * @Title: UserController @Description: 由loginName获取user @param
-	 * loginName @author mengfanzhu @throws
-	 */
 	@RequestMapping("/getUserByLoginName/{loginName}")
 	@ResponseBody
 	public Map<String, Object> getUserByName(@PathVariable String loginName) {
@@ -64,6 +62,35 @@ public class UserController {
 		result.put("departmentName", user.getDepartment().getName());
 		result.put("roleName", user.getRoleList().get(0).getName());
 		return result;
+	}
+
+	@RequestMapping("/init")
+	@ResponseBody
+	public String initVideo() {
+		videoService.initVideos();
+		return "success";
+	}
+
+	@RequestMapping("/getvideobyname/{name}")
+	@ResponseBody
+	public VideoDTO getVideo(@PathVariable String name) {
+
+		VideoDTO dto = videoService.getVideoByName(name);
+		return dto;
+	}
+
+	@RequestMapping("/videos")
+	@ResponseBody
+	public VideosDTO getVideos() {
+		VideosDTO dto = videoService.getVideos();
+		return dto;
+	}
+
+	@RequestMapping("/getvideobyid")
+	public VideoDTO greeting(@RequestParam(value = "id", defaultValue = "0") Long id) {
+		System.out.println("value=" + id);
+		VideoDTO dto = videoService.getVideoById(id);
+		return dto;
 	}
 
 }
