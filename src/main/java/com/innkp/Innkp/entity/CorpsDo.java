@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "corps")
-public class Corps implements Serializable, DBObject {
+public class CorpsDo implements Serializable, DBObject {
 
 	/**
 	 * 
@@ -24,18 +24,42 @@ public class Corps implements Serializable, DBObject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "name", columnDefinition = "varchar(128) not null")
 	private String name;
-	@Column(name = "url", columnDefinition = "varchar(128) not null")
-	private String url;
-	@Column(name = "cover", columnDefinition = "varchar(128) not null")
-	private String cover;
-
+	private String captain;
+	@Column(name = "label", columnDefinition = "varchar(256) not null")
+	private String label;
+	@Column(name = "details", columnDefinition = "TEXT")
+	private String details;
+	private Integer num;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createdDate;
 
+	public String getCaptain() {
+		return captain;
+	}
+
+	public void setCaptain(String captain) {
+		this.captain = captain;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
 	public Long getId() {
 		return id;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 
 	public void setId(Long id) {
@@ -50,20 +74,12 @@ public class Corps implements Serializable, DBObject {
 		this.name = name;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getCover() {
-		return cover;
-	}
-
-	public void setCover(String cover) {
-		this.cover = cover;
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 	public Date getCreatedDate() {
@@ -72,12 +88,6 @@ public class Corps implements Serializable, DBObject {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	@Override
-	public String toString() {
-		return "VideoDo [id=" + id + ", name=" + name + ", url=" + url + ", cover=" + cover + ", createdDate="
-				+ createdDate + "]";
 	}
 
 }

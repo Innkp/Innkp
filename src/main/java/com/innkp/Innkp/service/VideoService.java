@@ -55,7 +55,7 @@ public class VideoService {
 		videosIt.forEach(single -> {
 			videos.add(dtoHelper.buildVideoDTO(single));
 		});
-		dto.videos = videos;
+		dto.list = videos;
 		return dto;
 	}
 

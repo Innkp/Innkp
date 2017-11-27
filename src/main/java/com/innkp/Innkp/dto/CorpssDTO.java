@@ -9,6 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author yangxue9
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VideosDTO extends BaseDTO {
-	public List<VideoDTO> list;
+public class CorpssDTO extends BaseDTO {
+	public List<CorpsDTO> list;
 }

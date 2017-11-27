@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.innkp.Innkp.dto.CorpssDTO;
 import com.innkp.Innkp.dto.VideoDTO;
 import com.innkp.Innkp.dto.VideosDTO;
 import com.innkp.Innkp.entity.User;
+import com.innkp.Innkp.service.CorpsService;
 import com.innkp.Innkp.service.DataService;
 import com.innkp.Innkp.service.UserService;
 import com.innkp.Innkp.service.VideoService;
@@ -36,6 +38,8 @@ public class ApiController {
 	private DataService dataService;
 	@Autowired
 	private VideoService videoService;
+	@Autowired
+	private CorpsService corpsService;
 
 	@RequestMapping("/demo/{name}")
 	@ResponseBody
@@ -90,6 +94,20 @@ public class ApiController {
 	public VideoDTO greeting(@RequestParam(value = "id", defaultValue = "0") Long id) {
 		System.out.println("value=" + id);
 		VideoDTO dto = videoService.getVideoById(id);
+		return dto;
+	}
+
+	@RequestMapping("/test")
+	@ResponseBody
+	public String initTest() {
+		corpsService.initData();
+		return "success";
+	}
+
+	@RequestMapping("/corps")
+	@ResponseBody
+	public CorpssDTO getCorpss() {
+		CorpssDTO dto = corpsService.getCorpssDTO();
 		return dto;
 	}
 
