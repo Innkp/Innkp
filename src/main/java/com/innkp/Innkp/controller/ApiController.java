@@ -8,11 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.innkp.Innkp.dto.CorpsDTO;
 import com.innkp.Innkp.dto.CorpssDTO;
 import com.innkp.Innkp.dto.VideoDTO;
 import com.innkp.Innkp.dto.VideosDTO;
@@ -104,11 +108,25 @@ public class ApiController {
 		return "success";
 	}
 
-	@RequestMapping("/corps")
+	@RequestMapping("/corpss")
 	@ResponseBody
 	public CorpssDTO getCorpss() {
 		CorpssDTO dto = corpsService.getCorpssDTO();
 		return dto;
+	}
+
+	@RequestMapping("/corps")
+	@ResponseBody
+	public CorpsDTO getCorps(@RequestParam(value = "id", defaultValue = "0") Long id) {
+		CorpsDTO dto = corpsService.getCorpsById(id);
+		return dto;
+	}
+
+	@PostMapping("/createcorps")
+	public String handleFileUpload(@RequestParam("name") String name, @RequestParam("captain") String captain,
+			@RequestParam("label") String label, @RequestParam("details") String details) {
+		corpsService.save(name, captain, label, details);
+		return "success";
 	}
 
 }

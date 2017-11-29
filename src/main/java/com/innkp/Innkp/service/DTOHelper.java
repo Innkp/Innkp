@@ -35,6 +35,7 @@ public class DTOHelper {
 		final CorpsDTO dto = new CorpsDTO();
 		dto.id = f.getId();
 		dto.name = f.getName();
+		dto.label = f.getLabel();
 		dto.captain = f.getCaptain();
 		dto.createdDate = f.getCreatedDate();
 		dto.details = f.getDetails();

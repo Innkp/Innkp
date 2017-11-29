@@ -23,7 +23,7 @@ public class CorpsService {
 	@Autowired
 	private CorpsDao corpsDao;
 
-	public CorpsDTO getVideoByName(String name) {
+	public CorpsDTO getCorpsByName(String name) {
 		CorpsDo corps = corpsDao.findByName(name);
 		if (corps != null) {
 			return dtoHelper.buildCorpsDTO(corps);
@@ -32,7 +32,7 @@ public class CorpsService {
 		}
 	}
 
-	public CorpsDTO getVideoById(Long id) {
+	public CorpsDTO getCorpsById(Long id) {
 		CorpsDo corps = corpsDao.findOne(id);
 		if (corps != null) {
 			return dtoHelper.buildCorpsDTO(corps);
@@ -53,8 +53,21 @@ public class CorpsService {
 		return dto;
 	}
 
+	public boolean save(String name, String captain, String label, String details) {
+		CorpsDo c1 = new CorpsDo();
+		c1.setName(name);
+		c1.setCaptain(captain);
+		c1.setLabel(label);
+		c1.setDetails(details);
+		c1.setNum(1);
+		c1.setCreatedDate(new Date());
+		corpsDao.save(c1);
+		System.out.println(c1.toString());
+		return true;
+	}
+
 	public void initData() {
-		corpsDao.deleteAll();
+		// corpsDao.deleteAll();
 		CorpsDo c1 = new CorpsDo();
 		c1.setName("精致的男孩");
 		c1.setCaptain("呆呆");
@@ -62,7 +75,7 @@ public class CorpsService {
 		c1.setDetails(text);
 		c1.setNum(100);
 		c1.setCreatedDate(new Date());
-		corpsDao.save(c1);
+		c1 = corpsDao.save(c1);
 	}
 
 	private String text = "人之初，性本善。性相近，习相远。\n" + "苟不教，性乃迁。教之道，贵以专。\n" + "昔孟母，择邻处。子不学，断机杼。\n" + "窦燕山，有义方。教五子，名俱扬。\n"
