@@ -32,13 +32,17 @@ public class CorpsService {
 		}
 	}
 
-	public CorpsDTO getCorpsById(Long id) {
+	public CorpssDTO getCorpsById(Long id) {
+		CorpssDTO dto = new CorpssDTO();
+		List<CorpsDTO> corpss = new ArrayList<CorpsDTO>();
 		CorpsDo corps = corpsDao.findOne(id);
 		if (corps != null) {
-			return dtoHelper.buildCorpsDTO(corps);
+			corpss.add(dtoHelper.buildCorpsDTO(corps));
+			dto.list = corpss;
 		} else {
 			return null;
 		}
+		return dto;
 	}
 
 	public CorpssDTO getCorpssDTO() {
@@ -64,6 +68,17 @@ public class CorpsService {
 		corpsDao.save(c1);
 		System.out.println(c1.toString());
 		return true;
+	}
+
+	public boolean update(String corpsId) {
+		CorpsDo c1 = corpsDao.findOne(Long.parseLong(corpsId));
+		int num = c1.getNum();
+		if (num < 10) {
+			c1.setNum(num + 1);
+			corpsDao.save(c1);
+			return true;
+		} else
+			return false;
 	}
 
 	public void initData() {
